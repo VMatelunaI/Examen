@@ -1,0 +1,48 @@
+name: examen_app_movil
+description: "Examen Computacion Movil."
+
+publish_to: 'none' # Prevents accidental publishing to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase and Auth dependencies
+  firebase_core: ^2.15.0
+  firebase_auth: ^4.4.0
+  cloud_firestore: ^4.7.0
+  
+  # HTTP requests and data management
+  http: ^0.13.4
+  provider: ^6.0.0
+  
+  # For storing user session details locally
+  shared_preferences: ^2.0.8
+  
+  # Icons for iOS styles
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  # If you have any assets like images, you can include them here
+  assets:
+    # - images/a_dot_burr.jpeg
+    # - images/a_dot_ham.jpeg
+
+  # Uncomment below if you want to use custom fonts
+  # fonts:
+  #   - family: CustomFont
+  #     fonts:
+  #       - asset: fonts/CustomFont-Regular.ttf
