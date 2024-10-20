@@ -1,125 +1,164 @@
-import '/widgets/background.dart';
-import 'package:flutter/material.dart';
-import '/widgets/widgets.dart';
-import 'package:provider/provider.dart';
-import '/providers/providers.dart';
+// Proyecto: Examen Computación Móvil
+// Autor   : Victor Mateluna Iturrieta
+// Base    : Base obtenida de clases Computación Móvil
+//-------------------------------------------------------------------------
 
+import '/widgets/background.dart'; // Importa el widget de fondo personalizado
+import 'package:flutter/material.dart'; // Importa los componentes de Flutter
+import '/widgets/widgets.dart'; // Importa los widgets personalizados
+import 'package:provider/provider.dart'; // Importa Provider para la gestión del estado
+import '/providers/providers.dart'; // Importa los proveedores de estado
+
+// Pantalla principal del menú
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Usa el widget de fondo personalizado
       body: Background(
         child: SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(
-                height: 250,
+                height: 250, // Espacio en blanco antes de la tarjeta
               ),
+              // Contenedor tipo tarjeta para el contenido del menú
               CardContainer(
-                  child: Column(children: [
-                const SizedBox(height: 30),
-                Text(
-                  'Menu - Menu',
-                  style: Theme.of(context).textTheme.headlineSmall,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 30), // Espacio entre los elementos
+                    Text(
+                      'Menu - Menu', // Título de la pantalla
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall, // Aplica el tema de texto
+                    ),
+                    const SizedBox(height: 40), // Espacio antes de los botones
+                    // Proveedor del formulario del menú
+                    ChangeNotifierProvider(
+                      create: (_) => MenuFormProvider(),
+                      child: const MenuForm(), // Formulario del menú
+                    ),
+                    const SizedBox(height: 50), // Espaciado adicional
+                  ],
                 ),
-                const SizedBox(height: 40),
-                ChangeNotifierProvider(
-                  create: (_) => MenuFormProvider(),
-                  child: MenuForm(),
-                ),
-                const SizedBox(height: 50),
-              ])),
+              ),
             ],
           ),
         ),
       ),
-    );
+    ); // Fin Scaffold
   }
-}
+} // Fin clase MenuScreen
 
+// Clase que representa el formulario del menú
 class MenuForm extends StatelessWidget {
   const MenuForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final MenuForm = Provider.of<MenuFormProvider>(context);
+    final MenuForm = Provider.of<MenuFormProvider>(
+        context); // Accede al estado del formulario del menú
+
     return Container(
       child: Form(
-        key: MenuForm.formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Column(children: [
-          MaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            disabledColor: Colors.grey,
-            color: Colors.blue,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 10),
-              child: Text(
-                '*Proveedores*',
-                style: const TextStyle(color: Colors.white),
+        key: MenuForm.formKey, // Llave del formulario para validaciones
+        autovalidateMode: AutovalidateMode
+            .onUserInteraction, // Valida mientras el usuario interactúa
+        child: Column(
+          children: [
+            // Botón para ir a la lista de proveedores
+            MaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10), // Bordes redondeados
               ),
-            ),
-            elevation: 0,
-            onPressed: MenuForm.isLoading
-                ? null
-                : () async {
-                    FocusScope.of(context).unfocus();
-                    MenuForm.isLoading = true;
-                    Navigator.pushNamed(context, 'listprov');
-                    MenuForm.isLoading = false;
-                  },
-          ),
-          MaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            disabledColor: Colors.grey,
-            color: Colors.blue,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 10),
-              child: Text(
-                '*Categorias*',
-                style: const TextStyle(color: Colors.white),
+              disabledColor:
+                  Colors.grey, // Color cuando el botón está deshabilitado
+              color: Colors.blue, // Color del botón
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 80, vertical: 10), // Tamaño del botón
+                child: const Text(
+                  '*Proveedores*',
+                  style: TextStyle(color: Colors.white), // Color del texto
+                ),
               ),
+              elevation: 0,
+              onPressed: MenuForm.isLoading
+                  ? null // Si está cargando, el botón está deshabilitado
+                  : () async {
+                      FocusScope.of(context)
+                          .unfocus(); // Cierra el teclado si está abierto
+                      MenuForm.isLoading = true; // Activa el estado de carga
+                      Navigator.pushNamed(context,
+                          'listprov'); // Navega a la pantalla de proveedores
+                      MenuForm.isLoading =
+                          false; // Desactiva el estado de carga
+                    },
             ),
-            elevation: 0,
-            onPressed: MenuForm.isLoading
-                ? null
-                : () async {
-                    FocusScope.of(context).unfocus();
-                    MenuForm.isLoading = true;
-                    Navigator.pushNamed(context, 'listcat');
-                    MenuForm.isLoading = false;
-                  },
-          ),
-          MaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            disabledColor: Colors.grey,
-            color: Colors.blue,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 10),
-              child: Text(
-                '*Productos*',
-                style: const TextStyle(color: Colors.white),
+            // Botón para ir a la lista de categorías
+            MaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10), // Bordes redondeados
               ),
+              disabledColor:
+                  Colors.grey, // Color cuando el botón está deshabilitado
+              color: Colors.blue, // Color del botón
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 80, vertical: 10), // Tamaño del botón
+                child: const Text(
+                  '*Categorias*',
+                  style: TextStyle(color: Colors.white), // Color del texto
+                ),
+              ),
+              elevation: 0,
+              onPressed: MenuForm.isLoading
+                  ? null // Si está cargando, el botón está deshabilitado
+                  : () async {
+                      FocusScope.of(context)
+                          .unfocus(); // Cierra el teclado si está abierto
+                      MenuForm.isLoading = true; // Activa el estado de carga
+                      Navigator.pushNamed(context,
+                          'listcat'); // Navega a la pantalla de categorías
+                      MenuForm.isLoading =
+                          false; // Desactiva el estado de carga
+                    },
             ),
-            elevation: 0,
-            onPressed: MenuForm.isLoading
-                ? null
-                : () async {
-                    FocusScope.of(context).unfocus();
-                    MenuForm.isLoading = true;
-                    Navigator.pushNamed(context, 'listprod');
-                    MenuForm.isLoading = false;
-                  },
-          )
-        ]),
+            // Botón para ir a la lista de productos
+            MaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10), // Bordes redondeados
+              ),
+              disabledColor:
+                  Colors.grey, // Color cuando el botón está deshabilitado
+              color: Colors.blue, // Color del botón
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 80, vertical: 10), // Tamaño del botón
+                child: const Text(
+                  '*Productos*',
+                  style: TextStyle(color: Colors.white), // Color del texto
+                ),
+              ),
+              elevation: 0,
+              onPressed: MenuForm.isLoading
+                  ? null // Si está cargando, el botón está deshabilitado
+                  : () async {
+                      FocusScope.of(context)
+                          .unfocus(); // Cierra el teclado si está abierto
+                      MenuForm.isLoading = true; // Activa el estado de carga
+                      Navigator.pushNamed(context,
+                          'listprod'); // Navega a la pantalla de productos
+                      MenuForm.isLoading =
+                          false; // Desactiva el estado de carga
+                    },
+            ),
+          ],
+        ),
       ),
-    );
+    ); // Fin Container
   }
-}
+} // Fin clase MenuForm

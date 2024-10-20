@@ -38,8 +38,8 @@ flutter:
 
   # If you have any assets like images, you can include them here
   assets:
-    # - images/a_dot_burr.jpeg
-    # - images/a_dot_ham.jpeg
+    - images/a_dot_burr.jpeg
+    - images/a_dot_ham.jpeg
 
   # Uncomment below if you want to use custom fonts
   # fonts:
