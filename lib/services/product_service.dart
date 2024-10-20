@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import '/models/productos.dart';
 
 class ProductService extends ChangeNotifier {
-  final String _baseUrl = '143.198.118.203:8000';
+  final String _baseUrl = '143.198.118.203:8100';
   final String _user = 'test';
   final String _pass = 'test2023';
 
